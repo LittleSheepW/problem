@@ -1,6 +1,6 @@
-package July.ten.service.impl;
+package com.ww.July.ten.service.impl;
 
-import July.ten.service.Service;
+import com.ww.July.ten.service.Service;
 
 /**
  * @author: Sun

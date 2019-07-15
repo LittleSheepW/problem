@@ -1,6 +1,6 @@
-package July.eleven.main;
+package com.ww.July.eleven.main;
 
-import July.eleven.pojo.Student;
+import com.ww.pojo.Student;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;

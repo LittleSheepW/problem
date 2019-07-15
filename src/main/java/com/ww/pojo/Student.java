@@ -1,4 +1,4 @@
-package July.eleven.pojo;
+package com.ww.pojo;
 
 import java.util.Objects;
 

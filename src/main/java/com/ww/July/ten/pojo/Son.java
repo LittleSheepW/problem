@@ -1,4 +1,4 @@
-package July.ten.pojo;
+package com.ww.July.ten.pojo;
 
 /**
  * @author: Sun

@@ -1,9 +1,9 @@
-package July.ten.main;
+package com.ww.July.ten.main;
 
-import July.ten.pojo.Father;
-import July.ten.pojo.Son;
-import July.ten.service.Service;
-import July.ten.service.impl.ServiceImpl;
+import com.ww.July.ten.pojo.Father;
+import com.ww.July.ten.pojo.Son;
+import com.ww.July.ten.service.Service;
+import com.ww.July.ten.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 /**

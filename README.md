@@ -29,4 +29,24 @@
 > 4、Integer.parseInt()和Integer.parseInt()的区别是什么?  
 >> parseInt()返回的为int类型，valueOf()返回的是Integer类型  
 
+* 2019.07.11
+> 1、JPA Example是否可以进行and查询？  
+>> 可以的，直接在实体当中为多个域进行赋值即可。  
 
+> 2、工具类是单例的吗？比如我有一个工具类是用来上传文件的，那如果他是单例的，如果第一个任务在使用这个工具类，那么第二个任务呢？  
+>> 单例并非同一时间段只能被一个任务使用。其次工具类也不能说是单例的，因为工具类中的所有方法都是静态的，根本不涉及对象。而单例模式是针对于对象来说的。
+
+> 3、Executors中submit()和execute()的区别?  
+>> (1)submit()方法有返回值，  
+   (2)使用submit()方法可以让调用者感知线程中的异常。  
+    其实submit()是先构造出一个RunnableFuture(FutureTask) 然后再去调用execute方法。不管你submit的时候传入的是Runnable还是Callable，  
+最后RunnableFuture(FutureTask)里面都会生成Callable对象。任务调用的时候调用RunnableFuture(FutureTask)的run方法，run方法调用Callable对象的call方法。
+
+* 2019.07.15  
+> 1、线程池如何在web项目中正确使用？  
+>> 定义一个全局的静态变量  
+    eg: `static final ExecutorService executors = Executors.newCachedThreadPool();`  
+    当有请求过来需要处理的时候：`executors.submit(new StudentCallable);`  
+    该线程池不要shutdown，线程池跟随整个服务的生命周期。  
+
+> 2、      
