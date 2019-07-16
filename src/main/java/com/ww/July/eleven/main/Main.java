@@ -226,14 +226,26 @@ public class Main {
         }
     }
 
+    /**
+     * map集合初始化给定容量与不给定容量 添加10w个元素时间消耗
+     */
     public static void testMapPut() {
         Map<Integer, Object> map1 = new HashMap<>();
         long map1StartTime = System.currentTimeMillis();
-        for (int i = 0; i < 1024; i++) {
+        for (int i = 0; i < 100000; i++) {
             map1.put(i, i);
         }
+        long map1EndTime = System.currentTimeMillis();
 
-        Set<Map.Entry<Integer, Object>> entries = map1.entrySet();
-        map1.forEach((integer, o) -> System.out.println(integer + "..." + o));
+        System.out.println(map1EndTime - map1StartTime);
+
+        Map<Integer, Object> map2 = new HashMap<>(100000);
+        long map2StartTime = System.currentTimeMillis();
+        for (int i = 0; i < 1024; i++) {
+            map2.put(i, i);
+        }
+        long map2EndTime = System.currentTimeMillis();
+
+        System.out.println(map2EndTime - map2StartTime);
     }
 }
