@@ -10,9 +10,9 @@ import java.util.Objects;
  */
 public class Student {
 
-    private Integer id;
+    public Integer id;
 
-    private String name;
+    public String name;
 
     @Override
     public boolean equals(Object o) {
@@ -28,7 +28,7 @@ public class Student {
         return Objects.hash(id, name);
     }
 
-    public Student() {}
+    public Student() { System.out.println("无参构造方法");}
 
     public Student(Integer id, String name) {
         this.id = id;
