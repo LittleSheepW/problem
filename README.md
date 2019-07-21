@@ -109,7 +109,7 @@
 > 2、通过反射创建对象的方式？  
 ![](pic/反射创建对象.png)
 
-> 3、基本类型或数组类型调用getDeckaredFields()方法会返回一个长度为0的数组  
+> 3、基本类型或数组类型调用getDeclaredFields()方法会返回一个长度为0的数组  
   
 > 4、反射中 getMethods返回当前类中的共有方法和从父类继承的公有方法，getDeclaredMethods返回的只有当前类中的所有方法  
   
