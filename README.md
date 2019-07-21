@@ -49,7 +49,7 @@
     当有请求过来需要处理的时候：`executors.submit(new StudentCallable);`  
     该线程池不要shutdown，线程池跟随整个服务的生命周期。  
 
-> 2、Java各类对象的作用？   ()
+> 2、Java各类对象的作用？  
 >> • DO(Data Object):此对象与数据库表结构一一对应，通过 DAO 层向上传输数据源对象。  
    • DTO(Data Transfer Object):数据传输对象，Service 或 Manager 向外传输的对象。  
    • BO(Business Object):业务对象，由 Service 层输出的封装业务逻辑的对象。  
