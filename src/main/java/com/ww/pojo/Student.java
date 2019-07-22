@@ -8,7 +8,7 @@ import java.util.Objects;
  * @create: 2019-07-11 14:55
  * @version: v1.0
  */
-public class Student {
+public class Student implements Cloneable {
 
     public Integer id;
 
@@ -41,5 +41,19 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public Student clone() throws CloneNotSupportedException {
+        return (Student)super.clone();
+    }
+
+    public static void main(String[] args) {
+        // protected 如果子父类位于同包中，子类对象可以访问父类的protected方法
+        Son son = new Son();
+        son.callFatherMethod();
+
+        Father father = new Father();
+        father.test1();
     }
 }

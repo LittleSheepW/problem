@@ -10,7 +10,7 @@ import com.ww.jdk8.interfaces.impl.Jdk8InterfaceImpl;
  */
 public class Main {
     public static void main(String[] args) {
-        // System.out.println(InterfaceMethod.staticMethod("I'm iron man!"));
-        // System.out.println(new Jdk8InterfaceImpl().defaultMethod("hello"));
+        System.out.println(Jdk8Interface.staticMethod("transfer interface static method!"));
+        System.out.println(new Jdk8InterfaceImpl().defaultMethod("transfer interface default method"));
     }
 }
