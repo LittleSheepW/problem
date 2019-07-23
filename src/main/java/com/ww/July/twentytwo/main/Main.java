@@ -14,7 +14,8 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         // implementsCloneableCloneObject();
-        cloneArray();
+        // cloneArray();
+        new Main().testClone();
 
     }
 
@@ -49,5 +50,14 @@ public class Main {
         cloned[0] = 666;
         System.out.println(Arrays.toString(cloned));
         System.out.println(Arrays.toString(luckyNumbers));
+    }
+
+    public void testClone() {
+        try {
+            Object clone = super.clone();
+            System.out.println(clone);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 }

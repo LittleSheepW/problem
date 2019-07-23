@@ -155,10 +155,12 @@
 (2)Comparator 是比较器接口。我们若需要控制某个类的次序，而该类本身不支持排序(即没有实现Comparable接口)；那么，我们可以建立一个“该类的比较器”来进行排序。这个“比较器”只需要实现Comparator接口即可。也就是说，我们可以通过“实现Comparator类来新建一个比较器”，然后通过该比较器对类进行排序。
 (3)Comparable相当于"内部比较器"，Comparator相当于"外部比较器"。  
 
-> 5、protected修饰符问题?  
->> 当创建子类对象调用父类的protected成员变量时，必须要注意：子类对象和子类是对应的！当一个包外子类继承保护成员时，该成员在这个子类内实际上变为私有。包外子类有权访问超类成员，它指子类继承该成员，然而这并不意味着包外子类能够使用超类实例的引用访问该成员。
+> 5、protected修饰符问题(由Object类clone方法引申出该问题，Object类中的clone方法为受保护的权限，我使用一个实例化子类对象无法调用该clone方法)?  
+>> 当创建子类对象调用父类的protected成员变量时，必须要注意：子类对象和子类是对应的！当一个包外子类继承保护成员时，该成员在这个子类内实际上变为私有。包外子类有权访问超类成员，它指子类继承该成员，然而这并不意味着包外子类能够使用超类实例的引用访问该成员。  
     
-> 6、git使用命令如何删除本次分支和远程分支？
->> 删除本地分支: git branch -d <BranchName>  
-   删除远程分支：git branch -r -d origin/branch-name  
-               git push origin :branch-name
+> 6、git使用命令如何删除本次分支和远程分支？  
+>> 删除本地分支: `git branch -d <BranchName>`    
+   删除远程分支：`git branch -r -d origin/branch-name`    
+　　　　　　　`git push origin :branch-name`  
+
+
