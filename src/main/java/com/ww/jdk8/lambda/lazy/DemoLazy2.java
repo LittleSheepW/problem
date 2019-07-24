@@ -1,4 +1,4 @@
-package com.ww.July.twentythree.lambda.lazy;
+package com.ww.jdk8.lambda.lazy;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
