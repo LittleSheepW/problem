@@ -163,4 +163,64 @@
    删除远程分支：`git branch -r -d origin/branch-name`    
 　　　　　　　`git push origin :branch-name`  
 
+* 2019.07.23  
+> 1、git pull提示：  
+There is no tracking information for the current branch.  
+Please specify which branch you want to merge with.  
+See git-pull(1) for details.  
+    git pull remote branch  
+If you wish to set tracking information for this branch you can do so with:  
+    git branch --set-upstream-to=origin/branch master  
+>> (1)`git pull <remote> <branch>`  
+(2)`git branch --set-upstream-to=origin/branch master`  
+
+> 2、JPA常用注解
+>> `@Entity`：用于实体类声明语句之前，指出该Java实体类将映射到指定的数据库表。如声明一个实体类 Customer，它将映射到数据库中的 customer 表上。  
+`@Table`：当实体类与其映射的数据库表名不同名时需要使用 @Table 标注说明，该标注与 @Entity 标注并列使用，置于实体类声明语句之前。@Table 标注的常用选项是 name，用于指明数据库的表名，@Table标注还有其他的选项catalog、schema、indexes，分别用于设置表所属的数据库目录、模式(通常为数据库名)、索引。    
+`@Id`：用于声明一个实体类的属性映射为数据库的主键列。该属性通常置于属性声明语句之前。
+`@GeneratedValue`：用于标注主键的生成策略，通过 strategy 属性指定。默认情况下，JPA 自动选择一个最适合底层数据库的主键生成策略：SqlServer 对应 identity，MySQL 对应 auto increment。 在 javax.persistence.GenerationType 中定义了以下几种可供选择的策略：  
+(1)IDENTITY：采用数据库 ID自增长的方式来自增主键字段，Oracle 不支持这种方式；  
+(2)AUTO： JPA自动选择合适的策略，是默认选项；  
+(3)SEQUENCE：通过序列产生主键，通过 @SequenceGenerator 注解指定序列名，MySql 不支持这种方式;    
+(4)TABLE：通过表产生主键，框架借由表模拟序列产生主键，使用该策略可以使应用更易于数据库移植。
+`@Lob`：表示属性将被持久化为Blob或者Clob类型, 具体取决于属性的类型：java.sql.Clob, Character[],char[] 和java.lang.String这些类型的属性都被持久化为Clob类型, 而java.sql.Blob,Byte[], byte[] 和 serializable类型则被持久化为Blob类型。  
+`@Basic`：表示一个简单的属性到数据库表的字段的映射。  
+   fetch: 表示该属性的读取策略,有EAGER和LAZY两种,分别表示主支抓取和延迟加载,默认为EAGER    
+   (1)、FetchType.LAZY：懒加载，加载一个实体时，定义懒加载的属性不会马上从数据库中加载。  
+   (2)、FetchType.EAGER：急加载，加载一个实体时，定义急加载的属性会立即从数据库中加载。  
+   (3)、比方User类有两个属性，name跟address，就像百度知道，登录后用户名是需要显示出来的，此属性用到的几率极大，要马上到数据库查，用急加载;而用户地址大多数情况下不需要显示出来，只有在查看用户资料是才需要显示，需要用了才查数据库，用懒加载就好了。并不是一登录就把用户的所有资料都加载到对象中，于是有了这两种加载模式。       
+    optional：定义字段或属性的值是否为null，默认为true   
+`@Column`：当实体的属性与其映射的数据库表的列不同名时需要使用@Column 标注说明。  
+name:用于设置映射数据库表的列名  
+nullable:表示该字段是否允许为null,默认为true  
+unique:表示该字段是否是唯一标识,默认为false  
+length:表示该字段的大小,仅对String类型的字段有效  
+insertable:表示在ORM框架执行插入操作时,该字段是否应出现INSERT语句中,默认为true  
+updateable:表示在ORM框架执行更新操作时,该字段是否应该出现在UPDATE语句中,默认为 true。对于一经创建就不可以更改的字段,该属性非常有用,如对于birthday字段  
+columnDefinition:表示该字段在数据库中的实际类型。通常ORM框架可以根据属性类型自动判断数据库中字段的类型，但是对于Date类型仍无法确定数据库中字段类型究竟是DATE，TIME还是TIMESTAMP。此外String的默认映射类型为VARCHAR, 如果要将 String 类型映射到特定数据库的 BLOB 或TEXT 字段类型则需要使用该属性。    
+
+> 3、JPA特殊注解
+>> `@Transient`：表示该属性并非一个到数据库表的字段的映射，ORM框架将忽略该属性。如果一个属性并非数据库表的字段映射，就务必将其标示为@Transient。否则ORM框架默认其注解为@Basic。  
+`@Temporal`：在核心的 Java API 中并没有定义Date类型的精度(temporal precision)。 而在数据库中表示 Date 类型的数据有 DATE, TIME, 和 TIMESTAMP 三种精度(即单纯的日期,时间,或者两者 兼备)。在进行属性映射时可使用@Temporal注解来调整精度。  
+
+> 4、单项关联与双向关联的区别
+>> 单向关联是你在A类里面，可以访问到B类数据，但是在B类里面无法访问A类的数据，也就是访问不到A表的数据。  
+   双向关联是在B类里也可以访问A类的数据。比如：班级表和学生表，对应的Java类是班级类和学生类，假如我在显示学生信息的时候需要同时显示其所属的班级信息，那么就可以建立学生类到班级类的单向关联，如果我还想在显示班级基本信息的同时显示其所对应的学生信息，那么这时就可以建立双向关联了。  
+
+> 5、JDK8 方法引用  
+>> Method Reference：有时候可能已经有现成的方法可以完成你想要传递到其他代码的某个动作。  
+
+> 6、lambda 表达式的组成部分  
+>>  (1)一个代码块;    
+    (2)参数;    
+    (3)自由变量的值， 这是指非参数而且不在代码中定义的变量。  
+
+> 7、    
+
+   
+
+
+
+                                              
+   
 
