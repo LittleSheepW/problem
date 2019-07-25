@@ -281,6 +281,34 @@ class Animal{
 >> 双括号初始化(double brace initialization)这里利用了内部类语法。外层{} 建立了Student的一个匿名子类的一个匿名对象，
 内层{} 为初始块，只要构造类的对象，这些块就会被执行。
 
+* 2019.07.25  
+> 1、`InvocationHandler` Object invoke(Object proxy, Method method, Object[] args) 定义了代理对象调用方法时希望执行的动作。    
+`Proxy` static Class<?> getProxyClass(ClassLoader loader, Class<？>... interfaces) 返回实现指定接口的代理类。  
+`Proxy` static Object newProxyInstance(ClassLoader loader, Class<？>[] interfaces, InvocationHandler handler) 构造实
+现指定接口的代理类的一个新实例，所有方法会调用给定处理器对象的invoke方法。    
+`Proxy` static boolean isProxyClass(Class<？> cl) 如果cl是一个代理类则返回true。  
+
+
+> 2、接口、lambda表达式和内部类是经常使用的几个概念。克隆和代理是库设计者和工具构造者感兴趣的高级技术，对应用程序员来说，它们并不十分重要。  
+
+> 3、System.out 定义为public final static PrintStream out = null; 是如何做到在使用的时候获取的非null流对象？  
+>> 在System类中有这样的一个静态代码块  
+```java
+static {
+    registerNatives();
+}
+```
+>> 看一下注释：大概意思是将通过静态初始化注册native方法，该方法会令vm通过调用initializeSystemClass方法来完成初始化工作。该方法中  
+`setOut0(newPrintStream(fdOut, props.getProperty("sun.stdout.encoding")));` 就是为out变量进行初始化。  
+
+> 4、 System.out变量不是被static 和 final进行修饰了吗，为什么可以在运行期间改变引用了呢？  (接上面第3个问题继续提问的问题)
+>> setOut()是一段本地C/C++程序，直接进行操作内存的。而用static final修饰的out只是在编译阶段会禁止修改,在运行期间仍然可以直接通过内存修改。
+
+> 5、 git 撤销文件修改命令  
+>> git add之前：`git checkout -- filepathname`   
+git add之后(暂存区)：`git reset HEAD filepathname`  
+git commit之后：`git reset --hard HEAD^`     
+　　　　　　　　`git reset --hard  commitid `  
 
 
    
