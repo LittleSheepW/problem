@@ -305,7 +305,7 @@ static {
 >> setOut()是一段本地C/C++程序，直接进行操作内存的。而用static final修饰的out只是在编译阶段会禁止修改,在运行期间仍然可以直接通过内存修改。
 
 > 5、 git 撤销文件修改命令  
->> git add之前：`git checkout -- filepathname`   
+>> git add之前：`git checkout -f filepathname`   
 git add之后(暂存区)：`git reset HEAD filepathname`  
 git commit之后：`git reset --hard HEAD^`     
 　　　　　　　　`git reset --hard  commitid `  
