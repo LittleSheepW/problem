@@ -138,9 +138,9 @@
    
 * 2019.07.22
 > 1、Maven scope?  
->> `compile` 默认scope为compile，表示为当前依赖参与项目的编译、测试和运行阶段，属于强依赖。打包时会一块打进去。
-   `test` 该依赖仅仅参与测试相关的内容，包括测试用例的编译和执行，比如定性的Junit。  
-   `runtime` 依赖仅参与运行周期中的使用。一般这种类库都是接口与实现相分离的类库，比如JDBC类库，在编译之时仅依赖相关的接口，在具体的运行之时，才需要具体的mysql、oracle等等数据的驱动程序。此类的驱动都是为runtime的类库。
+>> `compile` 默认scope为compile，表示为当前依赖参与项目的编译、测试和运行阶段，属于强依赖。打包时会一块打进去。  
+   `test` 该依赖仅仅参与测试相关的内容，包括测试用例的编译和执行，比如定性的Junit。    
+   `runtime` 依赖仅参与运行周期中的使用。一般这种类库都是接口与实现相分离的类库，比如JDBC类库，在编译之时仅依赖相关的接口，在具体的运行之时，才需要具体的mysql、oracle等等数据的驱动程序。此类的驱动都是为runtime的类库。  
    `provided` 该依赖在打包过程中，不需要打进去，这个由运行的环境来提供，比如tomcat或者基础类库等等，事实上，该依赖可以参与编译、测试和运行等周期，与compile等同。区别在于打包阶段进行了exclude操作。    
    `system` 使用上与provided相同，不同之处在于该依赖不从maven仓库中提取，而是从本地文件系统中提取，其会参照systemPath的属性进行提取依赖。  
    `import` 只能在dependencyManagement的中使用，能解决maven单继承问题，import依赖关系实际上并不参与限制依赖关系的传递性。   
@@ -224,8 +224,8 @@ columnDefinition:表示该字段在数据库中的实际类型。通常ORM框架
 > 2、内部类的对象总有一个隐式引用，它指向了创建它的外部类对象，这个引用在内部类的定义中是不可见的。    
 
 > 3、new内部类对象的时候会触发外部类对象的构造方法吗？  
->> 如果内部类为普通内部类，肯定是先要通过外部类对象进行new 内部类对象的  
-如果内部类为静态内部类，ne静态内部类对象时不会触发外部类对象的构造方法。
+>> 如果内部类为普通内部类，肯定是先要通过外部类对象进行new内部类对象的  
+如果内部类为静态内部类，new静态内部类对象时不会触发外部类对象的构造方法。
 
 > 4、嵌套类有两个好处: 命名控制和访问控制  
 
@@ -305,10 +305,19 @@ static {
 >> setOut()是一段本地C/C++程序，直接进行操作内存的。而用static final修饰的out只是在编译阶段会禁止修改,在运行期间仍然可以直接通过内存修改。
 
 > 5、 git 撤销文件修改命令  
->> git add之前：`git checkout -f filepathname`   
-git add之后(暂存区)：`git reset HEAD filepathname`  
-git commit之后：`git reset --hard HEAD^`     
-　　　　　　　　`git reset --hard  commitid `  
+>> git add之前：`git checkout xxx.java`  
+git add之后(暂存区)：`git reset HEAD xxx.java`(加入到暂存区的文件重新放回到工作区)  
+git commit之后：`git reset --soft HEAD^ || git reset --soft commitid`(文件版本回退)
+git push之后：`git reset --soft HEAD^ || git reset --soft commitid`之后再进行 `git push -f` (如果分支已经被合并最好不要这样使用)  
+      
+*  2019.07.29  
+> 1、git diff的用法  
+>>  `git diff xxx.java`: 比较工作区与暂存区的(git add 后)的差别，一个文件可以在commit之前多次add。(git add之后就看不到了)  
+`git diff --cached || --staged xxx.java`：比较`暂存区`文件与`上一次commit`的差别(git diff --staged 和–cached的时候发现结果都一样，其实git diff --staged是–cached的同义词。git add之后可以查看 commit之后就看不到了)  
+`git diff HEAD xxx.java`：比较`工作区`文件与`最新本地版本库`的差别 (git commit之后就看不到了)
+git diff master origin/master：比较本地分支与远程分支之间的差别
+
+
 
 
    
