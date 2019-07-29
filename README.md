@@ -315,10 +315,42 @@ git push之后：`git reset --soft HEAD^ || git reset --soft commitid`之后再�
 >>  `git diff xxx.java`: 比较工作区与暂存区的(git add 后)的差别，一个文件可以在commit之前多次add。(git add之后就看不到了)  
 `git diff --cached || --staged xxx.java`：比较`暂存区`文件与`上一次commit`的差别(git diff --staged 和–cached的时候发现结果都一样，其实git diff --staged是–cached的同义词。git add之后可以查看 commit之后就看不到了)  
 `git diff HEAD xxx.java`：比较`工作区`文件与`最新本地版本库`的差别 (git commit之后就看不到了)
-git diff master origin/master：比较本地分支与远程分支之间的差别
+git diff master origin/master：比较本地分支与远程分支之间的差别  
 
+> 2、对于那些可能被他人使用的Java方法，应该根据异常规范(exception specification), 在方法的首部声明这个方法可能抛出的异常。
+如果一个方法有可能抛出多个受查异常类型，那么就必须在方法的首部列出所有的异常类。每个异常类之间用逗号隔开。
+不需要声明Java的内部错误，即从Error继承的错误。任何程序代码都具有抛出那些异常的潜能，而我们对其没有任何控制能力。
+同样，也不应该声明从RuntimeException继承的那些非受查异常。这些运行时错误完全在我们的控制之下，如果特别关注数组下标引发的错误， 
+就应该将更多的时间花费在修正程序中的错误上，而不是说明这些错误发生的可能性上。
+```java
+class MyAnimation {
+    public Image loadImage(String s) throws FileNotFoundException, EOFException {
+        System.out.println(s);
+    }
+}
+```   
 
+> 3、如果调用了一个抛出受查异常的方法，就必须对它进行处理，或者继续传递。哪种方法更好呢？通常，应该捕获那些知道如何处理的异常，而将那些不知道怎样处理的异常继续进行传递。
+特殊情况：如果编写一个覆盖超类的方法，而这个方法又没有抛出异常(如JComponent中的paintComponent)，那么这个方法就必须捕获方法代码中出现的每一个受查异常。
+不允许在子类的throws说明符中出现超过超类方法所列出的异常类范围。  
 
+> 4、堆栈轨迹(stack trace)是一个方法调用过程的列表，它包含了程序执行过程中方法调用的特定位置。  
+有两种方式可以获取堆栈轨迹：  
+(1) `StackTraceElement[] frames = Thread.currentThread().getStackTrace();`  
+(2) `Throwable t = new Throwable();  
+StackTraceElement[] frames = t.getStackTrace();`  
+
+> 5、在 Java 语言中，给出了3种处理系统错误的机制:   
+(1)抛出一个异常  
+(2)日志  
+(3)使用断言  
+什么时候应该选择使用断言呢? 请记住下面几点:
+(1)断言失败是致命的、不可恢复的错误。   
+(2)断言检查只用于开发和测阶段
+因此，不应该使用断言向程序的其他部分通告发生了可恢复性的错误，或者说断言不应该作为程序向用户通告问题的手段。断言只应该用于在开发和测试阶段确定程序内部的错误位置。
+切记：必须不依赖断言完成任何程序实际所需的行为。  
+
+> 6、
 
    
 
