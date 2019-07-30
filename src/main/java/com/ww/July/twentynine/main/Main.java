@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.file.FileSystemException;
 import java.util.Map;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -30,7 +33,7 @@ public class Main {
 
         // studyAssert();
 
-        // myLogger.log(Level.INFO, "main方法运行");
+        studyJavaUtilLog();
 
     }
 
@@ -92,5 +95,21 @@ public class Main {
 
         assert x >= 2 : "x not >= 2";  // 表达式将被传入AssertionError的构造器，并转换成一个消息字符串
         System.out.println(x);
+    }
+
+    /**
+     * Java.util.logging包下日志使用方式
+     */
+    public static void studyJavaUtilLog() {
+        // 日志记录器
+        Logger logger = Logger.getLogger("com.ww.July.twentynine.main");
+        // 设置日志级别，指定此记录器将记录哪些消息级别。低于此值的消息级别将被丢弃。
+        logger.setLevel (Level.FINE) ;
+        logger.setUseParentHandlers(false);
+        // 日志处理器
+        Handler handler = new ConsoleHandler();
+        handler.setLevel(Level.FINE);
+        logger.addHandler(handler);
+        logger.finer("i'm logger");
     }
 }

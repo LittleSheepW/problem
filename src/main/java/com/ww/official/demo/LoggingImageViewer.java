@@ -82,6 +82,7 @@ class ImageViewerFrame extends JFrame
       menu.add(exitItem);
       exitItem.addActionListener(new ActionListener()
          {
+            @Override
             public void actionPerformed(ActionEvent event)
             {
                logger.fine("Exiting.");
@@ -97,6 +98,7 @@ class ImageViewerFrame extends JFrame
 
    private class FileOpenListener implements ActionListener
    {
+      @Override
       public void actionPerformed(ActionEvent event)
       {
          logger.entering("ImageViewerFrame.FileOpenListener", "actionPerformed", event);
@@ -108,11 +110,12 @@ class ImageViewerFrame extends JFrame
          // accept all files ending with .gif
          chooser.setFileFilter(new javax.swing.filechooser.FileFilter()
             {
+               @Override
                public boolean accept(File f)
                {
                   return f.getName().toLowerCase().endsWith(".gif") || f.isDirectory();
                }
-
+               @Override
                public String getDescription()
                {
                   return "GIF Images";
@@ -153,10 +156,12 @@ class WindowHandler extends StreamHandler
       frame.setVisible(true);
       setOutputStream(new OutputStream()
          {
+            @Override
             public void write(int b)
             {
             } // not called
 
+            @Override
             public void write(byte[] b, int off, int len)
             {
                output.append(new String(b, off, len));
@@ -164,6 +169,7 @@ class WindowHandler extends StreamHandler
          });
    }
 
+   @Override
    public void publish(LogRecord record)
    {
       if (!frame.isVisible()) return;
