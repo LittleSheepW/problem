@@ -1,11 +1,11 @@
-package com.ww.official.demo;
+package com.ww.pojo;
 
 /**
  * 简单的泛型类
  * @version 1.00 2004-05-10
  * @author Cay Horstmann
  */
-public class Pair<T> 
+public class Pair<T>
 {
    private T first;
    private T second;

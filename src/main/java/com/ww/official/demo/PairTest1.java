@@ -1,5 +1,7 @@
 package com.ww.official.demo;
 
+import com.ww.pojo.Pair;
+
 /**
  * @author Cay Horstmann
  * @version 1.01 2012-01-26
