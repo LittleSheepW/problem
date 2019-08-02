@@ -33,6 +33,13 @@ public class PairTest3
 
    public static void printBuddies(Pair<? extends Employee> p)
    {
+      /**
+       * <? entends Employee>上限通配符为什么不可以使用setFirst()方法？
+       * 编译器只知道需要某个Employee的子类型，但不知道具体是什么类型。它拒绝传递任何特定的类型，
+       * 毕竟?不能用来匹配(如果可以设置类型的话，你可能在添加的过程中添加多个Employee的子类，这样的话
+       * 在取值的时候还是会出现问题，所以在=一开始的时候就是禁止添加元素的)。
+       */
+      // p.setFirst(new Manager());
       Employee first = p.getFirst();
       Employee second = p.getSecond();
       System.out.println(first.getName() + " and " + second.getName() + " are buddies.");
@@ -40,6 +47,14 @@ public class PairTest3
 
    public static void minmaxBonus(Manager[] a, Pair<? super Manager> result)
    {
+      /**
+       * <? super Manager>下限通配符为什么可以使用setFirst()方法呢?
+       * 因为系统不知道你会把?当成什么，所以只能设置成object，所以你取出元素的时候，取出的是object类。
+       * 因为下限有保证，所以可以添加T和T的子类。你初始化的时候，初始化的是T的某个父类。
+       * 你现在取元素，你希望取出的是你初始化的那个父类，因为你只能添加T和T的子类，所以你取出的元素，肯定可以赋值给那个父类。
+       */
+      result.setFirst(new Manager());
+      Object first = result.getFirst();
       if (a.length == 0) return;
       Manager min = a[0];
       Manager max = a[0];

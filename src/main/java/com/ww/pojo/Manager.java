@@ -17,6 +17,10 @@ public class Manager extends Employee
       bonus = 0;
    }
 
+   public Manager() {
+      super();
+   }
+
    public double getSalary()
    { 
       double baseSalary = super.getSalary();

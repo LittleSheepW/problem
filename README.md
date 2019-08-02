@@ -375,12 +375,46 @@ StackTraceElement[] frames = t.getStackTrace();`
 第一个限定的类型变量来替换，如果没有给定的使用Object来替换。      
 
 > 3、`class Interval<T extends Serializable & Comparable>`会发生什么？  
->> 如果这样做，原始类型用Serializable替换T，而编译器在必要时要向Comparable插入强制类型转换。为了提高效率，应该将标签tagging接口(即没有方法的接口)放在边界列表的末尾。  
+>> 如果这样做，原始类型用Serializable替换T，而编译器在必要时要向Comparable插入强制类型转换。为了提高效率，应该将标签tagging接口(即没有方法的接口)放在边界列表的末尾。
+在编译过程中，正确检验泛型结果后，在运行期间会将泛型的相关信息进行擦除，并且在对象进入和离开方法的边界处添加类型检查和类型转换的方法。泛型信息不会进入到运行期间。  
 
 > 4、(1)虚拟机中没有泛型，只有普通的类和方法。  
 (2)所有的类型参数都用它们的限定类型替换。  
 (3)桥方法被合成来保持多态。  
-(4)为保持类型安全性，必要时插人强制类型转换。
+(4)为保持类型安全性，必要时插人强制类型转换。 
+
+> 5、 泛型的本质是为了参数化类型（在不创建新的类型的情况下，通过泛型指定的不同类型来控制类型形参具体限制的类型）。也就是说在泛型使用过程中，
+操作的数据类型被指定为一个参数，这种参数类型可以用在类、接口和方法中，分别被称为泛型类、泛型接口、泛型方法。  
+
+> 6、类型通配符一般是使用？代替具体的类型实参，是具体的类型实参，而并非为类型形参。再直白点的意思就是，此处的？和Number、String、Integer一样都是一种实际的类型，
+可以把？看成所有类型的父类。是一种真实的类型。可以解决当具体类型不确定的问题。当操作类型时，不需要使用类型的具体功能时，只使用Object类中的功能。那么可以用 ? 通配符来表未知类型。  
+
+> 7、泛型类，是在实例化类的时候指明泛型的具体类型；泛型方法，是在调用方法的时候指明泛型的具体类型。  
+
+> 8、静态方法有一种情况需要注意一下，那就是在类中的静态方法使用泛型：静态方法无法访问类上定义的泛型；如果静态方法操作的引用数据类型不确定的时候，必须要将泛型定义在方法上。  
+
+> 9、泛型方法和非泛型方法的区别：非泛型方法依赖创建类时给定的泛型实际类型，泛型方法反之。泛型方法能使方法独立于类而产生变化。
+泛型方法的上下边界添加，必须与泛型的声明在一起。   
+
+
+* 2019.08.01 
+> 1、以下的配置项和pom依赖的作用分别是:
+```
+management.security.enabled=false		#actuator是否需要安全保证
+management.endpoints.web.exposure.include=*	 加载所有的端点/默认只加载了/info / health 
+
+spring-boot-actuator是一个spring-boot提供的用于监控组件，只需要在代码中加入依赖就可以了
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+```
+spring.jmx.enabled=false  是否将管理bean公开给JMX域。Java管理扩展(JMX)提供了一种监视和管理应用程序的标准机制，默认情况下，Spring Boot将管理端点公开为org.springframework.boot域中的JMX mbean。
+management.endpoints.jmx.exposure.exclude=*  不希望在JMX上公开的端点
+```
+
 
 
 
