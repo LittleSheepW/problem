@@ -10,4 +10,19 @@ public class Father {
         System.out.println("I'm Father class");
     }
 
+    public Father() {
+    }
+
+    public Father(Integer fatherId, String fatherName) {
+        this.fatherId = fatherId;
+        this.fatherName = fatherName;
+    }
+
+    @Override
+    public String toString() {
+        return "Father{" +
+                "fatherId=" + fatherId +
+                ", fatherName='" + fatherName + '\'' +
+                '}';
+    }
 }

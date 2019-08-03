@@ -11,6 +11,10 @@ public class Employee
    public Employee() {
    }
 
+   public Employee(String name) {
+      this.name = name;
+   }
+
    public Employee(String name, double salary, int year, int month, int day)
    {
       this.name = name;
