@@ -320,9 +320,9 @@ git push之后：`git reset --soft HEAD^ || git reset --soft commitid`之后再�
 *  2019.07.29  
 > 1、git diff的用法  
 >>  `git diff xxx.java`: 比较工作区与暂存区的(git add 后)的差别，一个文件可以在commit之前多次add。(git add之后就看不到了)  
-`git diff --cached || --staged xxx.java`：比较`暂存区`文件与`上一次commit`的差别(git diff --staged 和–cached的时候发现结果都一样，其实git diff --staged是–cached的同义词。git add之后可以查看 commit之后就看不到了)  
+`git diff --cached || --staged xxx.java`：比较`暂存区`文件与`上一次commit`的差别(git diff --staged 和–cached的时候发现结果都一样，其实git diff --staged是–cached的同义词。git add之后可以查看 commit之后就看不到了)    
 `git diff HEAD xxx.java`：比较`工作区`文件与`最新本地版本库`的差别 (git commit之后就看不到了)
-git diff master origin/master：比较本地分支与远程分支之间的差别  
+`git diff master origin/master`：比较本地分支与远程分支之间的差别  
 
 > 2、对于那些可能被他人使用的Java方法，应该根据异常规范(exception specification), 在方法的首部声明这个方法可能抛出的异常。
 如果一个方法有可能抛出多个受查异常类型，那么就必须在方法的首部列出所有的异常类。每个异常类之间用逗号隔开。
@@ -344,17 +344,16 @@ class MyAnimation {
 > 4、堆栈轨迹(stack trace)是一个方法调用过程的列表，它包含了程序执行过程中方法调用的特定位置。  
 有两种方式可以获取堆栈轨迹：  
 (1) `StackTraceElement[] frames = Thread.currentThread().getStackTrace();`  
-(2) `Throwable t = new Throwable();  
-StackTraceElement[] frames = t.getStackTrace();`  
+(2) `Throwable t = new Throwable();`  
+`StackTraceElement[] frames = t.getStackTrace();`  
 
 > 5、在 Java 语言中，给出了3种处理系统错误的机制:   
 (1)抛出一个异常  
 (2)日志  
 (3)使用断言  
-什么时候应该选择使用断言呢? 请记住下面几点:  
+什么时候应该选择使用断言呢? 请记住下面几点:    
 (1)断言失败是致命的、不可恢复的错误。   
-(2)断言检查只用于开发和测阶段
-因此，不应该使用断言向程序的其他部分通告发生了可恢复性的错误，或者说断言不应该作为程序向用户通告问题的手段。断言只应该用于在开发和测试阶段确定程序内部的错误位置。
+(2)断言检查只用于开发和测阶段。因此，不应该使用断言向程序的其他部分通告发生了可恢复性的错误，或者说断言不应该作为程序向用户通告问题的手段。断言只应该用于在开发和测试阶段确定程序内部的错误位置。
 切记：必须不依赖断言完成任何程序实际所需的行为。   
 
 * 2019.07.30  
@@ -370,7 +369,7 @@ StackTraceElement[] frames = t.getStackTrace();`
 > 1、一个类型变量或通配符可以有多个限定，例如: `T extends Comparable & Serializable`。限定类型用“ & ” 分隔，逗号用来分隔类型变量。
 在Java的继承中，可以根据需要拥有多个接口超类型，但限定中至多有一个类。如果用一个类作为限定，它必须是限定列表中的第一个。
 
-> 2、虚拟机没有泛型类型对象—所有对象都属于普通类。无论何时定义一个泛型类型，都自动提供了一个相应的原始类型(raw type)。
+> 2、虚拟机没有泛型类型对象————所有对象都属于普通类。无论何时定义一个泛型类型，都自动提供了一个相应的原始类型(raw type)。
 原始类型的名字就是删去类型参数后的泛型类型名。擦除(erased)类型变量并替换为限定类型(无限定的变量用Object)，原始类型用类型变量中
 第一个限定的类型变量来替换，如果没有给定的使用Object来替换。      
 
@@ -380,7 +379,9 @@ StackTraceElement[] frames = t.getStackTrace();`
 
 > 4、(1)虚拟机中没有泛型，只有普通的类和方法。  
 (2)所有的类型参数都用它们的限定类型替换。  
-(3)桥方法被合成来保持多态。  
+(3)桥方法被合成来保持多态。 桥接方法是JDK1.5引入泛型后，为了使Java的泛型方法生成的字节码和1.5版本前的字节码相兼容，由编译器自动生成的方法。  
+就是说一个子类在继承(或实现)一个父类(或接口)的泛型方法时，在子类中明确指定了泛型类型，那么在编译时编译器会自动生成桥接方法(当然还有其他情况会生成桥接方法)。
+由于Java泛型的擦除特性，如果不生成桥接方法，那么与1.5之前的字节码就不兼容了。https://blog.csdn.net/mhmyqn/article/details/47342577    
 (4)为保持类型安全性，必要时插人强制类型转换。 
 
 > 5、 泛型的本质是为了参数化类型（在不创建新的类型的情况下，通过泛型指定的不同类型来控制类型形参具体限制的类型）。也就是说在泛型使用过程中，
@@ -391,7 +392,7 @@ StackTraceElement[] frames = t.getStackTrace();`
 
 > 7、泛型类，是在实例化类的时候指明泛型的具体类型；泛型方法，是在调用方法的时候指明泛型的具体类型。  
 
-> 8、静态方法有一种情况需要注意一下，那就是在类中的静态方法使用泛型：静态方法无法访问类上定义的泛型；如果静态方法操作的引用数据类型不确定的时候，必须要将泛型定义在方法上。  
+> 8、静态方法有一种情况需要注意一下，那就是在类中的静态方法使用泛型：静态方法无法访问类上定义的泛型；如果静态方法操作的引用数据类型不确定的时候，必须要将泛型定义在泛型方法上。  
 
 > 9、泛型方法和非泛型方法的区别：非泛型方法依赖创建类时给定的泛型实际类型，泛型方法反之。泛型方法能使方法独立于类而产生变化。
 泛型方法的上下边界添加，必须与泛型的声明在一起。   
@@ -416,13 +417,11 @@ management.endpoints.jmx.exposure.exclude=*  不希望在JMX上公开的端点
 ```
 
 * 2019.08.02
-> 1、编译器简单地将“ foreach” 循环翻译为带有迭代器的循环。 "for each” 循环可以与任何实现了Iterable接口(该接口仅有一个返回Iterator对象的抽象方法)的对象一起工作。Collection接口扩展了 Iterable接口。因此， 对于标准类库中的任何集合都可以使用“ for each” 循环。
-Collection接口扩展了 Iterable接口。因此，对于标准类库中的任何集合都可以使用“ for each” 循环。  
-
+> 1、编译器简单地将“ foreach” 循环翻译为带有迭代器的循环。 "for each” 循环可以与任何实现了Iterable接口(该接口仅有一个返回Iterator对象的抽象方法)的对象一起工作。Collection接口扩展了 Iterable接口。因此， 对于标准类库中的任何集合都可以使用“ for each” 循环。  
 > 2、如果调用remove之前没有调用next将是不合法的。如果这样做，将会抛出一个IllegalStateException异常。如果想删除两个相邻的元素，不能直接地这样调用: 
 ```java
-it.neext();
-it .remove();
+it.next();
+it.remove();
 it.remove(); // Error!
 ```  
 必须先调用 next 越过将要删除的元素。  

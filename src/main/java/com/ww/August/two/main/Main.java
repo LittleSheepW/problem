@@ -17,7 +17,6 @@ public class Main {
         // listIteratorMethod();
         // testTreeSetAndHashSetAddSameElement();
 
-        new ArrayList<>().subList()
     }
 
     /**
